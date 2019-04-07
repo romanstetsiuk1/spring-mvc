@@ -2,10 +2,7 @@ package com.romanstetsiuk.spring_mvc;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MyController {
@@ -42,6 +39,19 @@ public class MyController {
                            Model model) {
         model.addAttribute("secondName", sn);
         return "wynik";
+    }
+
+    @GetMapping("/dodaj")
+    String dodaj(Model model) {
+        model.addAttribute("user", new User());
+        return "dodajUzytkownika";
+    }
+
+    @PostMapping("/zatwierdz")
+    String submit(@ModelAttribute("user") User u, Model model) {
+        Long id = u.getId();
+        model.addAttribute("id", id);
+        return "resultView";
     }
 
 }
